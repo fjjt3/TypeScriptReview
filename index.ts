@@ -5,9 +5,9 @@ const menu = [
     {name: "Veggie", price: 9},
 ]
 
-const cashInRegister = 100;
-const nextOrderId = 1;
-const orderQueue = [];
+let cashInRegister = 100;
+let nextOrderId = 1;
+let orderQueue = [];
 
 function addNewPizza(pizzaObj){
     menu.push(pizzaObj);
@@ -15,6 +15,10 @@ function addNewPizza(pizzaObj){
 
 function placeOrder(pizzaName){
     const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName);
+    if (!selectedPizza){
+        console.error(`${{pizzaName} does not exit in the menu`)
+            return
+    }
     cashInRegister += selectedPizza.price;
     const newOrder ={ id: nextOrderId++, pizza: selectedPizza, status: "ordered"};
     orderQueue.push(newOrder);
